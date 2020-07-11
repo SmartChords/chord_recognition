@@ -81,3 +81,13 @@ def write_inputs_to_csv(prepared_input):
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(fields)
         csvwriter.writerows(rows)
+
+
+def get_chord_predictions():
+    data = pd.read_csv("chord_data/input.csv")
+
+    prediction = np.array(data)
+    predictions = np.argmax(model.predict(prediction), axis=-1)
+    prediction_ = np.argmax(to_categorical(predictions), axis = 1)
+    prediction_ = encoder.inverse_transform(prediction_)
+    return prdiction_
